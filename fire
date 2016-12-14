@@ -1,0 +1,338 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n1) This notebook assumes that the user has Python 2.7 and Spark 2.0\n\n2) In the Interpreter settings, change the proprty to the following:\nzeppelin.pyspark.python\t/usr/lib/virtualenv/python27/bin/python\n\n3)  In the Interpreter settings, change the proprty to the following:\nzeppelin.default.interpreter\tpyspark\n\nThis eliminates the need to explicitly state %pyspark in each paragraph. ",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1475518463348_-734425813",
+      "id": "20161003-181423_937942641",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e1) This notebook assumes that the user has Python 2.7 and Spark 2.0\u003c/p\u003e\n\u003cp\u003e2) In the Interpreter settings, change the proprty to the following:\n\u003cbr  /\u003ezeppelin.pyspark.python /usr/lib/virtualenv/python27/bin/python\u003c/p\u003e\n\u003cp\u003e3)  In the Interpreter settings, change the proprty to the following:\n\u003cbr  /\u003ezeppelin.default.interpreter    pyspark\u003c/p\u003e\n\u003cp\u003eThis eliminates the need to explicitly state %pyspark in each paragraph.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Oct 3, 2016 6:14:23 PM",
+      "dateStarted": "Nov 14, 2016 11:35:47 PM",
+      "dateFinished": "Nov 14, 2016 11:35:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Start a Spark Session",
+      "text": "from pyspark.sql import SparkSession\n\nspark \u003d SparkSession\\\n    .builder\\\n    .appName(\"WikiClickStream Analysis\")\\\n    .config(\"spark.some.config.option\", \"some-value\")\\\n    .getOrCreate()",
+      "dateUpdated": "Nov 21, 2016 4:09:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1475452700467_1986318736",
+      "id": "20161002-235820_696157825",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Oct 2, 2016 11:58:20 PM",
+      "dateStarted": "Nov 14, 2016 11:35:47 PM",
+      "dateFinished": "Nov 14, 2016 11:35:47 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": " Load the raw dataset stored as a TSV file",
+      "text": "clickstreamRaw \u003d spark.read \\\n  .options(header\u003d\"true\", delimiter\u003d\"\\t\", mode\u003d\"PERMISSIVE\", inferSchema\u003d\"true\") \\\n  .csv(\"s3://mohan-product/wiki-dataset/2016_03_en_clickstream.tsv\")",
+      "dateUpdated": "Nov 20, 2016 6:00:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1462750058147_455278455",
+      "id": "20160508-232738_331210353",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "May 8, 2016 11:27:38 PM",
+      "dateStarted": "Nov 14, 2016 11:35:47 PM",
+      "dateFinished": "Nov 14, 2016 11:35:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Display sample data- Option 1",
+      "text": "clickstreamRaw.show()",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1462751189001_95166043",
+      "id": "20160508-234629_595385051",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+--------------------+--------------------+----+---+\n|                prev|                curr|type|  n|\n+--------------------+--------------------+----+---+\n|  \"Wild_Bill\"_Hickok|Deadwood,_South_D...|link| 18|\n|(Ghost)_Riders_in...|Stan_Jones_(songw...|link|410|\n|(Hey_You)_The_Roc...|    Rock_Steady_Crew|link| 75|\n|    (Miss)understood|Heaven_(Ayumi_Ham...|link| 13|\n|(Theme_from)_Vall...|Do_You_Know_the_W...|link| 12|\n|(Theme_from)_Vall...|I_Say_a_Little_Pr...|link| 30|\n|(You_Gotta)_Fight...|     Solid_Gold_Hits|link| 12|\n|(You_Make_Me_Feel...|       Mary_J._Blige|link| 25|\n|(You_Make_Me_Feel...|The_Sweet_Inspira...|link| 19|\n|                -ing|              Suffix|link| 20|\n|                -ism|            Ideology|link| 63|\n|...And_Justice_fo...|       Jason_Newsted|link|575|\n|...And_Now_Back_t...|   The_Rotten_Agenda|link| 15|\n|  ...And_Time_Begins|Diminishing_Betwe...|link| 42|\n|          ...Best_II|Strangeways,_Here...|link| 20|\n| ...First_Do_No_Harm|         Seth_Adkins|link| 63|\n|...For_the_Whole_...|Death_(protopunk_...|link|262|\n|...I_Care_Because...| Donkey_Rhubarb_(EP)|link|448|\n|...To_Be_Continue...|You\u0027ve_Lost_That_...|link| 17|\n|          .204_Ruger|   .22-250_Remington|link|112|\n+--------------------+--------------------+----+---+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "May 8, 2016 11:46:29 PM",
+      "dateStarted": "Nov 14, 2016 11:35:47 PM",
+      "dateFinished": "Nov 14, 2016 11:35:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Display sample data- Option 2",
+      "text": "z.show(clickstreamRaw)",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "prev",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "curr",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "prev",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "curr",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1475519312003_663978264",
+      "id": "20161003-182832_1612783872",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "prev\tcurr\ttype\tn\n\"Wild_Bill\"_Hickok\tDeadwood,_South_Dakota\tlink\t18\n(Ghost)_Riders_in_the_Sky:_A_Cowboy_Legend\tStan_Jones_(songwriter)\tlink\t410\n(Hey_You)_The_Rock_Steady_Crew\tRock_Steady_Crew\tlink\t75\n(Miss)understood\tHeaven_(Ayumi_Hamasaki_song)\tlink\t13\n(Theme_from)_Valley_of_the_Dolls\tDo_You_Know_the_Way_to_San_Jose\tlink\t12\n(Theme_from)_Valley_of_the_Dolls\tI_Say_a_Little_Prayer\tlink\t30\n(You_Gotta)_Fight_for_Your_Right_(To_Party!)\tSolid_Gold_Hits\tlink\t12\n(You_Make_Me_Feel_Like)_A_Natural_Woman\tMary_J._Blige\tlink\t25\n(You_Make_Me_Feel_Like)_A_Natural_Woman\tThe_Sweet_Inspirations\tlink\t19\n-ing\tSuffix\tlink\t20\n-ism\tIdeology\tlink\t63\n...And_Justice_for_All_(album)\tJason_Newsted\tlink\t575\n...And_Now_Back_to_Our_Programming\tThe_Rotten_Agenda\tlink\t15\n...And_Time_Begins\tDiminishing_Between_Worlds\tlink\t42\n...Best_II\tStrangeways,_Here_We_Come\tlink\t20\n...First_Do_No_Harm\tSeth_Adkins\tlink\t63\n...For_the_Whole_World_to_See\tDeath_(protopunk_band)\tlink\t262\n...I_Care_Because_You_Do\tDonkey_Rhubarb_(EP)\tlink\t448\n...To_Be_Continued_(Isaac_Hayes_album)\tYou\u0027ve_Lost_That_Lovin\u0027_Feelin\u0027\tlink\t17\n.204_Ruger\t.22-250_Remington\tlink\t112\n.20_Tactical\t.20_VarTarg\tlink\t49\n.220_Russian\tDeer_hunting\tlink\t24\n.223_Remington\tSectional_density\tlink\t14\n.22_Hornet\t5_mm_caliber\tlink\t112\n.22_Hornet\tVermin\tlink\t27\n.22_Winchester_Magnum_Rimfire\tCartridge_(firearms)\tlink\t52\n.22_Winchester_Rimfire\t.22_Winchester_Magnum_Rimfire\tlink\t90\n.22_caliber\t.22_Short\tlink\t322\n.257_Roberts\tNorma_Precision\tother\t11\n.25_Remington\t.219_Donaldson_Wasp\tlink\t19\n.260_Remington\t7mm-08_Remington\tlink\t153\n.277_Wolverine\t5.56×45mm_NATO\tlink\t16\n.30-06_Springfield_Wildcat_Cartridges\t.35_Whelen\tlink\t63\n.303\tLee–Enfield\tlink\t28\n.308_Winchester\tCommon_duiker\tlink\t69\n.30_Carbine\t.30-06_Springfield\tlink\t14\n.30_Carbine\tM1_Garand\tlink\t86\n.30_Carbine\tUnited_States\tlink\t12\n.325_Winchester_Short_Magnum\t8_mm_caliber\tlink\t19\n.32_ACP\tFB_Wanad\tother\t181\n.338_Lapua_Magnum\tSniper_rifle\tlink\t93\n.357_Magnum\t.38_Super\tlink\t592\n.357_Magnum\t38_Special\tother\t25\n.357_Magnum\tList_of_Magnum_pistol_cartridges\tlink\t767\n.35_Whelen\tWildcat_cartridge\tlink\t12\n.380_ACP\tHi-Point_Firearms\tother\t270\n.38_Special\tWorld_War_I\tlink\t20\n.404_Jeffery\t.375_H\u0026H_Magnum\tlink\t65\n.416_Barrett\tList_of_rifle_cartridges\tlink\t108\n.44-40_Winchester\tWinchester_Repeating_Arms_Company\tlink\t45\n.44_Magnum\tAir-gap_flash\tlink\t101\n.44_Special\tSmith_\u0026_Wesson_Ladysmith\tlink\t11\n.45-70\tBig-game_hunting\tlink\t41\n.454_Casull\t.500_S\u0026W_Magnum\tother\t36\n.458_SOCOM\tWilson_Combat\tlink\t25\n.458_Winchester_Magnum\tList_of_rifle_cartridges\tlink\t58\n.45_ACP\t.460_Rowland\tlink\t200\n.45_ACP\tBullet\tlink\t30\n.50_Action_Express\tHandgun\tlink\t44\n.50_Alaskan\t.50_Action_Express\tlink\t29\n.50_BMG\tBullet\tlink\t33\n.50_BMG\tSub-caliber_round\tlink\t212\n.585_Gehringer\t.585_Nyati\tlink\t108\n.NET_Compact_Framework\tWindows_Mobile\tlink\t19\n.NET_Compiler_Platform\tNuGet\tlink\t12\n.NET_Framework\tSoftware_developer\tlink\t13\n.NET_Framework_version_history\tMetro-style_apps\tlink\t41\n.au\t.cc\tlink\t11\n.bb\tBarbados\tlink\t17\n.ca\tCountry_code_top-level_domain\tlink\t28\n.cat\tDomain_hack\tlink\t87\n.com\t.net\tlink\t289\n.com\t.onion\tlink\t14\n.cymru\tWales\tlink\t39\n.de\t.com\tlink\t14\n.de\t.in\tlink\t13\n.dz\tBerber_languages\tlink\t72\n.er\tEritrean_Telecommunications_Corporation\tother\t61\n.hack\tBee_Train\tlink\t32\n.hack_(video_game_series)\t.hack//Liminality\tlink\t90\n.hr\tCroatian_language\tlink\t12\n.htaccess\tSemantic_URL\tlink\t101\n.ir\tTop-level_domain\tlink\t11\n.kiwi\t.nz\tlink\t28\n.music\tTop-level_domain\tlink\t22\n.net\t.de\tlink\t164\n.net\tVerisign\tlink\t82\n.nfo\tFILE_ID.DIZ\tlink\t69\n.pro\tGeneric_top-level_domain\tlink\t28\n.sub\tMicroDVD\tlink\t87\n.tf\tCountry_code_top-level_domain\tlink\t13\n.uk\t.tv\tlink\t12\n.us\tGood_faith\tother\t54\n.zr\t.tp\tlink\t15\n0-8-4\tDaisy_Johnson\tlink\t22\n007:_Quantum_of_Solace\tIW_engine\tlink\t22\n00_Agent\tJulius_No\tlink\t23\n01:59PM\tStill_02:00PM\tother\t60\n07th_Expansion\tUmineko:_When_They_Cry\tlink\t193\n0_(number)\tFE-Schrift\tlink\t24\n0_(number)\tSigned_zero\tlink\t78\n0_(year)\tGregorian_calendar\tlink\t204\n0_A.D._(video_game)\tAge_of_Empires_II\tother\t29\n0_Series_Shinkansen\t400_Series_Shinkansen\tlink\t11\n0_Series_Shinkansen\tE1_Series_Shinkansen\tlink\t11\n0_to_100_/_The_Catch_Up\tStarted_from_the_Bottom\tlink\t266\n1,000,000,000\tBillion\tother\t35\n1,000,000,000\tMain_Page\tother\t61\n1,000,000,000\tMetric_prefix\tother\t19\n1,000,000,000\tYear\tother\t49\n1,1,1-Trichloroethane\tNFPA_704\tlink\t19\n1,2,4-Trimethylbenzene\tList_of_gasoline_additives\tother\t37\n1,2-Dibromo-3-chloropropane\tNematicide\tlink\t20\n1,3-Benzodioxolylbutanamine\t1,3-Benzodioxolyl-N-ethylbutanamine\tlink\t13\n1,3-Dipolar_cycloaddition\tRolf_Huisgen\tlink\t15\n1,4-Benzoquinone\tCoenzyme_Q10\tother\t16\n1,4-Dichlorobenzene\tCalifornia_Proposition_65_(1986)\tlink\t14\n1,4-Dichlorobenzene\tIron(III)_chloride\tother\t15\n1,_2_Step\tOh_(Ciara_song)\tlink\t157\n1-2-3_(Len_Barry_song)\tLen_Barry\tlink\t61\n1-Butene\tButene\tlink\t95\n1-Propanol\tAcetic_acid\tlink\t22\n1-bit_architecture\tBit_slicing\tlink\t43\n1.1.1-Propellane\tStaffane\tlink\t12\n1._FC_Frankfurt\tFrankfurt_(Oder)\tlink\t43\n1._FC_Kaiserslautern\t1._FC_Nürnberg\tlink\t33\n1._FC_Magdeburg\tList_of_1._FC_Magdeburg_players\tlink\t11\n1._FC_Schweinfurt_05\tSchweinfurt\tlink\t23\n1._FC_Union_Berlin\t2014–15_2._Bundesliga\tlink\t66\n1._FC_Union_Berlin\tBerliner_Landespokal\tlink\t33\n1._FSV_Mainz_05\tBayer_04_Leverkusen\tlink\t40\n1._FSV_Mainz_05\tDanny_Latza\tlink\t446\n1._FSV_Mainz_05\tFootball_in_Germany\tlink\t16\n1._FSV_Mainz_05\tHannover_96\tlink\t30\n1._FSV_Mainz_05\tPatrick_Pflücke\tlink\t237\n10,000_BC_(TV_show)\tChannel_5_(UK)\tlink\t15\n10,000_BC_(film)\tRoland_Emmerich\tlink\t560\n10,000_BC_(film)\tWhite_House_Down\tlink\t18\n10,000_Maniacs\tSteve_Gustafson\tlink\t140\n10,_9,_8,_7,_6,_5,_4,_3,_2,_1\tMidnight_Oil\tlink\t118\n10-20-Life\tAssault\tlink\t28\n10-20_system_(EEG)\tFrontal_lobe\tlink\t20\n10.5_cm_SK_C/32_naval_gun\tDefensively_equipped_merchant_ship\tother\t23\n10.5_cm_leFH_18/40\t15_cm_Kanone_16\tlink\t13\n100\t100_(disambiguation)\tlink\t260\n100-series_highways_(Nova_Scotia)\tSuper_two\tother\t11\n1000\t990s\tlink\t17\n1000\tAnno_Domini\tother\t45\n100000000_(number)\tCatalan_number\tlink\t21\n1000_(number)\tMarkov_number\tlink\t23\n1000_(number)\tYear_2000_problem\tother\t33\n1000_Ways_to_Die_(season_3,_2011)\tPhotic_sneeze_reflex\tlink\t17\n1000_Ways_to_Die_(season_3,_2012)\tLazarus_syndrome\tlink\t26\n1000_Ways_to_Die_(season_4)\tOhio_Reformatory_for_Women\tlink\t12\n1000hp_(album)\tGodsmack_(album)\tlink\t11\n1001_Albums_You_Must_Hear_Before_You_Die\tThe_Doors\tlink\t33\n100_(Glee)\tGlee_(season_5)\tlink\t22\n100_BC\tGaius_Marius\tlink\t13\n100_Classic_Book_Collection\tThe_Phantom_of_the_Opera\tlink\t19\n100_Grand_Bar\tNestlé\tlink\t22\n100_Great_Paintings\tGiuseppe_Arcimboldo\tlink\t29\n100_Great_Paintings\tMadonna_of_Chancellor_Rolin\tlink\t15\n100_Greatest_African_Americans\tAlexander_Crummell\tlink\t25\n100_Greatest_African_Americans\tJohn_Henrik_Clarke\tlink\t35\n100_Greatest_African_Americans\tMichael_Jordan\tother\t50\n100_Greatest_Britons\tGeorge_Stephenson\tlink\t113\n100_Greatest_Britons\tMarie_Stopes\tlink\t612\n100_Greatest_Romanians\tIon_Luca_Caragiale\tlink\t12\n100_Greatest_of_All_Time\tAndre_Agassi\tlink\t147\n100_Greatest_of_All_Time\tLleyton_Hewitt\tlink\t60\n100_Legends_of_the_IHSA_Boys_Basketball_Tournament\tDwight_Eddleman\tlink\t14\n100_Legends_of_the_IHSA_Boys_Basketball_Tournament\tGeorge_Wilson_(basketball,_born_1942)\tlink\t15\n100_Mile_House\tWilliam_Cecil,_5th_Marquess_of_Exeter\tlink\t12\n100_Welsh_Heroes\tGareth_Edwards\tlink\t34\n100_Years\tCentury\tlink\t31\n100_Years_(film)\tJohn_Malkovich\tlink\t145\n100_metres\tDonovan_Bailey\tlink\t286\n100_metres\tKerron_Stewart\tlink\t47\n100_metres\tNight_of_Speed\tlink\t51\n100_metres\tStarting_pistol\tother\t25\n100_metres\tT51_(classification)\tlink\t18\n100_metres_at_the_Olympics\tEvelyn_Ashford\tlink\t17\n100_mexicanos_dijeron\tMarco_Antonio_Regil\tlink\t52\n100_micrometres\tAmoeba_proteus\tlink\t11\n100s_(decade)\t70s\tlink\t24\n1012\t1009\tlink\t31\n1012\tAl-Hakim_bi-Amr_Allah\tlink\t11\n1017_Records\tFerrari_Boyz\tlink\t30\n1017_Records\tTrap_House_III\tlink\t56\n101955_Bennu\tBennu\tlink\t52\n101_(number)\t200_(number)\tlink\t14\n101_Dalmatians_(1996_film)\t101_Dalmatians:_Escape_from_DeVil_Manor\tlink\t13\n101_Dalmatians_(1996_film)\tFifty_Shades_of_Grey_(film)\tlink\t24\n101_Dalmatians_(1996_film)\tMark_Williams_(actor)\tlink\t750\n101st_Airborne_Division\t1967_Detroit_riot\tlink\t71\n101st_Airborne_Division\tA_Sầu_Valley\tother\t32\n101st_Airborne_Division\tRebecca/Eureka_transponding_radar\tlink\t44\n101st_Airborne_Division\tWestern_Allied_invasion_of_Germany\tlink\t88\n101st_SS_Heavy_Panzer_Battalion\tBattle_of_Villers-Bocage\tlink\t42\n102_Minutes:_The_Untold_Story_of_the_Fight_to_Survive_Inside_the_Twin_Towers\tWorld_Trade_Center_(1973–2001)\tlink\t11\n102nd_United_States_Congress\tCivil_Rights_Act_of_1991\tlink\t15\n105\tEmperor_Shang_of_Han\tlink\t12\n1066\tEric_and_Eric\tlink\t14\n1066_Granada_massacre\tSamuel_ibn_Naghrillah\tother\t35\n1067\t1070\tlink\t11\n106th_Guards_Tula_Airborne_Division\tRussian_Airborne_Troops\tlink\t38\n1080_(disambiguation)\t1080_(skateboarding)\tlink\t14\n1080_(skateboarding)\tTom_Schaar\tlink\t169\n1080p\tDigital_single-lens_reflex_camera\tlink\t13\n1080p\tXbox_360\tlink\t27\n1080s\t1110s\tlink\t13\n108_Martyrs_of_World_War_II\tDominik_Jędrzejewski\tlink\t14\n108_Martyrs_of_World_War_II\tNazi_persecution_of_the_Catholic_Church_in_Poland\tlink\t21\n1099\tSiege_of_Jerusalem_(1099)\tlink\t25\n10BASE5\tFluorinated_ethylene_propylene\tlink\t22\n10G-EPON\tPassive_optical_network\tlink\t17\n10K_run\tSingelloop_Utrecht\tlink\t18\n10_(Wet_Wet_Wet_album)\tIf_I_Never_See_You_Again\tlink\t15\n10_(number)\tSenary\tlink\t15\n10_August_(French_Revolution)\tAntoine_Galiot_Mandat_de_Grancey\tother\t16\n10_Cloverfield_Lane\tDivergence_(disambiguation)\tother\t17\n10_Cloverfield_Lane\tMidnight_Special\tother\t24\n10_Cloverfield_Lane\tPsychological_thriller\tlink\t857\n10_Cloverfield_Lane\tThe_War_of_the_Worlds\tother\t11\n10_Great_Songs_(Pat_Benatar_album)\tPat_Benatar\tlink\t13\n10_Magazine\t10_Magazine_(Korea)\tlink\t11\n10_Rules_for_Sleeping_Around\tReid_Ewing\tlink\t87\n10_Rules_for_Sleeping_Around\tThe_Singing_Forest\tlink\t11\n10_Things_I_Hate_About_You\tEnglish_studies\tlink\t11\n10_Things_I_Hate_About_You\tGeek\tlink\t38\n10_from_6\tFame_and_Fortune\tlink\t399\n10_meter_air_pistol\tBaikal_IZH-46M\tlink\t147\n10_nanometer\t14_nanometer\tlink\t1369\n10cc_(album)\tThe_Dean_and_I\tlink\t43\n10mm_Auto\tThompson_submachine_gun\tlink\t66\n10s_BC\t15_BC\tlink\t17\n10th-Anniversary_Stadium\tSilesian_Stadium\tother\t22\n10th_(Irish)_Division\tBattle_of_Nablus\tlink\t12\n10th_Academy_Awards\tRoland_Young\tlink\t14\n10th_Annual_Honda_Civic_Tour\tThe_World_Contamination_Tour\tlink\t16\n10th_Armoured_Cavalry_Brigade_(Poland)\t11th_Armoured_Cavalry_Division\tlink\t68\n10th_Avenue_(IRT_Flushing_Line)\tNew_York_Water_Taxi\tlink\t13\n10th_Marine_Regiment_(United_States)\t3rd_Battalion_10th_Marines\tlink\t25\n10th_Mountain_Division_(United_States)\tCharles_Minot_Dole\tlink\t28\n10th_Mountain_Division_(United_States)\tSpring_1945_offensive_in_Italy\tlink\t97\n10th_Panzer_Division_(Bundeswehr)\tBoxer_(armoured_fighting_vehicle)\tlink\t19\n10th_Rifle_Division_(Soviet_Union)\tVyborg–Petrozavodsk_Offensive\tlink\t12\n10th_Special_Forces_Group_(United_States)\tBattle_of_Khafji\tlink\t16\n10th_century\tBattle_of_Achelous_(917)\tother\t30\n10th_century_BC\t1000s_BC_(decade)\tother\t35\n10th_century_BC\tPanchala\tlink\t15\n10th_millennium_BC\tArchaic_humans\tother\t15\n10th_of_Ramadan_City\tAl_Sharqia_Governorate\tlink\t17\n11.22.63\tBattleground_(TV_series)\tlink\t19\n11.22.63\tHap_and_Leonard_(TV_series)\tother\t25\n11.22.63\tSarah_Gadon\tlink\t26946\n11/22/63\tJoyland_(novel)\tlink\t34\n1101\tList_of_state_leaders_in_1101\tlink\t14\n110_in_the_Shade\tSpinster\tlink\t13\n110th_United_States_Congress\tDick_Cheney\tlink\t23\n113_Amalthea\tArjuna_asteroid\tlink\t11\n1146\tGeorge_of_Antioch\tlink\t12\n114th_United_States_Congress\tAlan_Grayson\tlink\t21\n114th_United_States_Congress\tBob_Brady\tlink\t20\n114th_United_States_Congress\tDelaware\u0027s_at-large_congressional_district\tlink\t12\n114th_United_States_Congress\tGrace_Napolitano\tlink\t26\n114th_United_States_Congress\tJohn_Thune\tlink\t112\n114th_United_States_Congress\tLisa_Murkowski\tlink\t102\n114th_United_States_Congress\tTed_Cruz\tlink\t111\n1150\t1147\tlink\t32\n116th_Infantry_Brigade_Combat_Team_(United_States)\tReconnaissance,_surveillance,_and_target_acquisition_(United_States)\tother\t16\n1176_Peak_Limiter\tLA-2A_Leveling_Amplifier\tlink\t83\n1180_AM\tWHAM_(AM)\tlink\t11\n118_(TV_series)\tCavin_Soh\tlink\t96\n1190\tRichard_I_of_England\tlink\t16\n119th_Wing\tLockheed_F-94_Starfire\tother\t11\n11:11_(Rodrigo_y_Gabriela_album)\tLive_in_France_(Rodrigo_y_Gabriela_album)\tlink\t42\n11B-X-1371\tInsert_(filmmaking)\tlink\t24\n11_mm_caliber\tCaliber\tlink\t17\n11th_Academy_Awards\tThe_Great_Waltz_(film)\tlink\t30\n11th_Airborne_Division_(United_States)\tBattle_of_Luzon\tlink\t21\n11th_Annual_Grammy_Awards\tBy_the_Time_I_Get_to_Phoenix_(album)\tlink\t17\n11th_Armored_Cavalry_Regiment\tNevada_National_Guard\tother\t22\n11th_Armoured_Division_(United_Kingdom)\t15th/19th_The_King\u0027s_Royal_Hussars\tlink\t17\n11th_SS_Volunteer_Panzergrenadier_Division_Nordland\tStadtmitte_(Berlin_U-Bahn)\tlink\t15\n11th_Song\tBreakfast_at_Tiffany\u0027s_(song)\tlink\t31\n11th_century\t1010s\tlink\t23\n12-12-12:_The_Concert_for_Sandy_Relief\tEddie_Vedder\tlink\t15\n12-Bar_Original\tCry_for_a_Shadow\tlink\t29\n12-Crown-4\tCrown_ether\tlink\t25\n12.8_cm_Pak_44\t7.62_cm_Pak_36(r)\tlink\t21\n1200\t11th_century\tlink\t16\n1200s_(decade)\t1170s\tlink\t17\n1200s_BC_(decade)\t1170s_BC\tlink\t12\n1200s_BC_(decade)\tSrubna_culture\tlink\t11\n120_Collins_Street\tList_of_tallest_buildings_in_Melbourne\tlink\t18\n1212_(album)\t7L_\u0026_Esoteric\tlink\t22\n122_mm_howitzer_M1910/30\t122_mm_howitzer_M1910\tlink\t22\n123_(number)\tAaron\tlink\t11\n1251_Avenue_of_the_Americas\t1211_Avenue_of_the_Americas\tlink\t34\n1251_Avenue_of_the_Americas\tWallace_Harrison\tlink\t14\n125_mm_smoothbore_ammunition\tT-72\tlink\t11\n125th_Street_(IRT_Lexington_Avenue_Line)\t6_(New_York_City_Subway_service)\tlink\t11\n127_(number)\tMersenne_prime\tlink\t42\n128-bit\tIPv6\tlink\t18\n1290s_BC\t1300s_BC_(decade)\tlink\t14\n12:51\t12:51_(Krissy_\u0026_Ericka_song)\tlink\t14\n12_Hours_of_Sebring\tCorvette_Daytona_Prototype\tlink\t110\n12_Monkeys\t46th_Berlin_International_Film_Festival\tlink\t13\n12_Monkeys\tChris_Marker\tlink\t119\n12_Monkeys\tFlorida_Keys\tlink\t54\n12_Monkeys\tThe_Imaginarium_of_Doctor_Parnassus\tlink\t19\n12_Monkeys_(TV_series)\tAftermath_(2016_TV_series)\tlink\t62\n12_Monkeys_(TV_series)\tOutlander_(TV_series)\tother\t13\n12_Rounds_(film)\tRenny_Harlin\tlink\t116\n12_Rounds_2:_Reloaded\tSean_Rogerson\tlink\t41\n12_Rounds_3:_Lockdown\tRandy_Orton\tlink\t120\n12_Rounds_3:_Lockdown\tSee_No_Evil_2\tlink\t23\n12_Stones_discography\tAnthem_for_the_Underdog\tlink\t65\n12_X_5\tBill_Wyman\tlink\t13\n12_points_of_the_Hungarian_Revolutionaries_of_1848\tHungarian_Revolution_of_1848\tlink\t12\n12th_Academy_Awards\tHattie_McDaniel\tlink\t139\n12th_Armored_Division_(United_States)\tBattle_for_Castle_Itter\tlink\t19\n12th_SS_Panzer_Division_Hitlerjugend\tUnited_States_Army_Europe\tlink\t12\n12th_century\tPope_Adrian_IV\tlink\t13\n12th_century_in_literature\tCulhwch_and_Olwen\tlink\t11\n12th_man_(football)\tHome_advantage\tlink\t12\n130_mm_towed_field_gun_M1954_(M-46)\tMotovilikha_Plants\tlink\t38\n1310s_BC\tHoremheb\tlink\t11\n1316\tBattle_of_Picotin\tlink\t15\n1320_Club\tSiol_nan_Gaidheal\tlink\t13\n1320s\t1290s\tlink\t13\n134th_Fighter_Squadron\tBurlington_Air_National_Guard_Base\tlink\t11\n135_film\tFlocking_(texture)\tlink\t20\n135th_Street_(IRT_Lenox_Avenue_Line)\t149th_Street_–_Grand_Concourse_(New_York_City_Subway)\tlink\t31\n13_(number)\tSuperstition\tlink\t14\n13_(number)\tThirteen_Classics\tlink\t20\n13_Frightened_Girls\tGidget_Goes_to_Rome\tlink\t16\n13_Going_on_30\tBrittany_Curran\tlink\t283\n13_Hours:_The_Secret_Soldiers_of_Benghazi\tBlack_Hawk_Down_(film)\tother\t12\n13_Hours:_The_Secret_Soldiers_of_Benghazi\tMorocco\tlink\t34\n13_Hours:_The_Secret_Soldiers_of_Benghazi\tReactions_to_Innocence_of_Muslims\tlink\t109\n13_Hours_(book)\tMitchell_Zuckoff\tlink\t426\n13th_Academy_Awards\tWalter_Brennan\tlink\t14\n13th_Demi-Brigade_of_the_Foreign_Legion\tForeign_Legion_Detachment_in_Mayotte\tlink\t13\n13th_Division_(Syrian_rebel_group)\tRussian_military_intervention_in_the_Syrian_Civil_War\tlink\t26\n13th_Division_(United_States)\tPhilippine_Division\tlink\t14\n13th_Golden_Raspberry_Awards\tNewsies\tlink\t18\n13th_Waffen_Mountain_Division_of_the_SS_Handschar_(1st_Croatian)\tIndependent_State_of_Croatia\tlink\t92\n13th_century_BC\tTheseus\tlink\t14\n1408_(film)\tAndrew-Lee_Potts\tlink\t60\n1408_(film)\tEscape_Plan_(film)\tlink\t17\n1408_(film)\tLen_Cariou\tlink\t109\n1408_(film)\tThe_Mist_(film)\tlink\t20\n141\t138\tlink\t19\n1410\tJan_Hus\tlink\t13\n141st_Infantry_Regiment_(United_States)\t72nd_Infantry_Brigade_Combat_Team_(United_States)\tlink\t15\n1453\tCalais\tlink\t21\n1453\tOttoman_Empire\tlink\t12\n1461_Trabzon\tTFF_First_League\tlink\t151\n1492\tYgo_Gales_Galama\tlink\t14\n1492:_Conquest_of_Paradise\tChristopher_Columbus:_The_Discovery\tlink\t206\n1492:_Conquest_of_Paradise\tMain_Page\tother\t19\n14_-_Diaries_of_the_Great_War\tJo_Mihaly\tlink\t60\n14_July_Revolution\tArab_Federation\tlink\t117\n14_Reels_Entertainment\tPower_(2014_Kannada_film)\tlink\t52\n14_Shots_to_the_Dome\tLL_Cool_J\tlink\t24\n14_Signal_Regiment_(Electronic_Warfare)\tCelle\tlink\t37\n14_Wall_Street\tMausoleum_at_Halicarnassus\tother\t12\n14_Years\tUse_Your_Illusion_II\tlink\t65\n14_regions_of_Augustan_Rome\tAncient_Rome\tlink\t38\n14th_Academy_Awards\tOne_Foot_in_Heaven\tlink\t21\n14th_Dalai_Lama\tAmdo_Tibetan\tother\t36\n14th_Dalai_Lama\tDalai_Lama\tlink\t3612\n14th_Dalai_Lama\tKham\tlink\t18\n14th_Flying_Training_Wing\t14th_Operations_Group\tlink\t44\n14th_Golden_Raspberry_Awards\tGolden_Raspberry_Awards\tlink\t24\n14th_Special_Forces_Division\tDefense_Companies_(Syria)\tother\t13\n14th_Street_(PATH_station)\tPATH_(rail_system)\tlink\t14\n14th_Tony_Awards\tThe_Sound_of_Music\tlink\t15\n1500_in_philosophy\t1500_in_literature\tlink\t15\n1500_metres_world_record_progression\t800_metres_world_record_progression\tlink\t23\n1500s_BC_(decade)\t1490s_BC\tlink\t61\n1520s_BC\tJacob\tlink\t15\n1550s_in_England\tElizabeth_I_of_England\tlink\t22\n1556_Shaanxi_earthquake\tLists_of_earthquakes\tlink\t82\n155mm\tBofors_155_Bonus\tlink\t139\n155mm\tLong_Range_Land_Attack_Projectile\tlink\t110\n155mm_SpGH_ZUZANA\tMilitary_of_Slovakia\tlink\t11\n1566_Icarus\tProject_Icarus_(interstellar)\tlink\t12\n1582\tProleptic_Gregorian_calendar\tlink\t17\n15_(number)\tRoman_numerals\tlink\t23\n15_Minutes\tVera_Farmiga\tlink\t140\n15_cm_sFH_13\t15_cm_sFH_02\tlink\t38\n15_minutes_of_fame\tI_Don\u0027t_Like_the_Drugs_(But_the_Drugs_Like_Me)\tlink\t36\n15th_Academy_Awards\tJames_Cagney\tlink\t21\n15th_Academy_Awards\tSpeaking_of_Animals_and_Their_Families\tlink\t12\n15th_Marine_Regiment_(United_States)\t6th_Marine_Division_(United_States)\tlink\t11\n15th_century_BC\tBattle_of_the_Ten_Kings\tlink\t63\n1600\tLinköping_Bloodbath\tlink\t17\n160th_Special_Operations_Aviation_Regiment_(Airborne)\tOperation_Red_Wings\tlink\t87\n1610\tHenry_IV_of_France\tlink\t11\n1612_(film)\tMikhail_Porechenkov\tlink\t20\n1630s_in_England\t1640_in_England\tlink\t33\n163rd_Infantry_Regiment_(United_States)\t41st_Infantry_Division_(United_States)\tlink\t30\n1648\tRed_Fort\tlink\t12\n165_Squadron,_Republic_of_Singapore_Air_Force\tRapier_(missile)\tother\t14\n165th_Street_Bus_Terminal\tList_of_bus_routes_in_Nassau_County,_New_York\tlink\t15\n1665\tCyclopia\tlink\t16\n167th_Street_(IRT_Jerome_Avenue_Line)\tAnderson–Jerome_Avenues_(IRT_Ninth_Avenue_Line)\tlink\t15\n1692\tSalem_witch_trials\tlink\t55\n1699\tList_of_state_leaders_in_1699\tlink\t25\n169th_Infantry_Division_(Wehrmacht)\tList_of_German_divisions_in_World_War_II\tlink\t12\n16_(number)\tDriver\u0027s_license\tlink\t14\n16_Air_Assault_Brigade\t4th_Battalion,_Parachute_Regiment\tlink\t78\n16_Air_Assault_Brigade\tMaroon_beret\tlink\t65\n16_Biggest_Hits_(Alan_Jackson_album)\tGood_Time_(album)\tlink\t98\n16_Biggest_Hits_(George_Jones_album)\tGeorge_Jones\tlink\t33\n16_Biggest_Hits_(George_Jones_album)\tLive_with_the_Possum\tlink\t15\n16_May_1877_crisis\tMonarchism_in_France\tlink\t14\n16_Psyche\tPsyche_(spacecraft)\tlink\t44\n16_and_Pregnant\tList_of_16_and_Pregnant_episodes\tlink\t5380\n16th-century_philosophy\tAge_of_Enlightenment\tlink\t35\n16th_AVN_Awards\tTami_Monroe\tlink\t11\n16th_Lok_Sabha\tE._Ahamed\tother\t22\n16th_Lok_Sabha\tKaushalendra_Kumar\tlink\t13\n16th_Lok_Sabha\tSumitra_Mahajan\tlink\t116\n16th_Street_Baptist_Church_bombing\tCondoleezza_Rice\tlink\t36\n16th_Street_Baptist_Church_bombing\tRalph_Abernathy\tlink\t14\n16th_arrondissement_of_Paris\tStade_Jean-Bouin\tother\t12\n16th_century\tTime_of_Troubles\tlink\t12\n16th_century_BC\tDeucalion\tlink\t16\n17-11-70\tDave_Herman_(disc_jockey)\tlink\t15\n172nd_Infantry_Brigade_(United_States)\t1st_Armored_Division_(United_States)\tlink\t12\n173rd_Airborne_Brigade_Combat_Team\tAllied_advance_from_Paris_to_the_Rhine\tother\t23\n173rd_Airborne_Brigade_Combat_Team\tCharles_J._Watters\tlink\t13\n1746\tCharles_Edward_Stuart\tother\t17\n1755_Cape_Ann_earthquake\tSeabrook_Station_Nuclear_Power_Plant\tlink\t22\n1770\tBoston_Massacre\tlink\t35\n1770_(mummy)\tDracunculiasis\tlink\t18\n1774\tFirst_Continental_Congress\tlink\t14\n1776_(musical)\tJames_Wilson\tlink\t30\n1776_(musical)\tPaul_Hecht\tlink\t100\n1779_in_the_United_States\t1782_in_the_United_States\tlink\t11\n1783_in_the_United_States\tMinor_American_Revolution_holidays\tother\t15\n1787_in_the_United_States\tUnited_States_Constitution\tlink\t16\n1789:_Les_Amants_de_la_Bastille\tCamille_Lou\tlink\t16\n1790s_BC\tShamshi-Adad_I\tlink\t12\n179th_Airlift_Wing\t164th_Airlift_Squadron\tlink\t18\n17_(number)\tList_of_notable_numbers\tother\t23\n17th-century_philosophy\tList_of_philosophers_born_in_the_15th_and_16th_centuries\tother\t16\n18\tGregorian_calendar\tlink\t15\n18-bit\t32-bit\tlink\t12\n1800_United_States_Census\tUnited_States_Census\tlink\t26\n1802\tTreaty_of_Amiens\tlink\t15\n1802_in_science\tWilliam_Hyde_Wollaston\tlink\t15\n180s_BC\t210s_BC\tlink\t11\n1811_German_Coast_Uprising\tLaBranche_Plantation_Dependency\tlink\t17\n181st_Street_(IND_Eighth_Avenue_Line)\t175th_Street_(IND_Eighth_Avenue_Line)\tlink\t60\n1821\tNavarino_massacre\tlink\t24\n1824_Constitution_of_Mexico\tFirst_Mexican_Empire\tlink\t39\n1826_in_the_United_Kingdom\tGeorge_IV_of_the_United_Kingdom\tlink\t11\n1830\t1830_in_the_United_Kingdom\tlink\t18\n1833\tKaspar_Hauser\tlink\t11\n1837\tBroad_Street_Riot\tlink\t17\n1840_in_the_United_States\t1837_in_the_United_States\tlink\t18\n1840s\t18th_century\tlink\t11\n1840s_in_Western_fashion\tVictorian_fashion\tlink\t25\n1845\tAlexander_III_of_Russia\tlink\t11\n1848_Democratic_National_Convention\t1844_Democratic_National_Convention\tlink\t92\n1850s_in_Western_fashion\tCrinoline\tlink\t18\n1850s_in_Western_fashion\tTailcoat\tother\t27\n1850s_in_Western_fashion\tVictorian_dress_reform\tlink\t38\n1852_Democratic_National_Convention\tJames_Buchanan\tlink\t12\n1852_in_the_United_States\t1849_in_the_United_States\tlink\t12\n1857\t1860\tlink\t17\n1858_San_Diego_hurricane\tList_of_California_hurricanes\tlink\t26\n185th_Airborne_Division_Folgore\t184th_Airborne_Division_Nembo\tlink\t20\n1860_Mount_Lebanon_civil_war\tJumblatt_family\tlink\t27\n1860_Oxford_evolution_debate\tRobert_FitzRoy\tlink\t26\n1860_Republican_National_Convention\tSam_Houston\tlink\t28\n1860_United_States_Census\t1790_United_States_Census\tlink\t17\n1860_United_States_Census\tJoseph_C._G._Kennedy\tlink\t52\n1862_International_Exhibition\tExposition_Universelle_(1855)\tlink\t43\n1863_in_the_United_States\tAmerican_Civil_War\tlink\t20\n1868_Republican_National_Convention\tReuben_Fenton\tother\t11\n1868_in_the_United_States\t1871_in_the_United_States\tlink\t18\n1872_Scotland_vs_England_football_match\tScotland_national_football_team\tlink\t16\n187_(slang)\tMain_Page\tother\t23\n1880_Republican_National_Convention\tWinfield_Scott_Hancock\tlink\t70\n1884_in_baseball\t1884_Boston_Reds_season\tlink\t26\n1884_in_baseball\t1884_Chicago_White_Stockings_season\tlink\t26\n1887\t1887_in_the_United_Kingdom\tlink\t16\n1888\tDear_Boss_letter\tlink\t13\n1888_Republican_National_Convention\tJohn_Sherman\tlink\t32\n1889\t1892\tlink\t19\n1890s_in_Western_fashion\tAscot_tie\tlink\t18\n1890s_in_film\t1897_in_film\tlink\t15\n1892_in_the_United_States\tGay_Nineties\tlink\t12\n1895\tCuban_War_of_Independence\tlink\t12\n1896\t1896_St._Louis–East_St._Louis_tornado\tlink\t12\n1896\t1896_in_literature\tlink\t12\n1896\tCross_of_Gold_speech\tlink\t14\n1896_Sanriku_earthquake\tSeismicity_of_the_Sanriku_coast\tlink\t13\n1897\tGreco-Turkish_War_(1897)\tlink\t14\n1898_Atlantic_hurricane_season\t1898_Georgia_hurricane\tlink\t12\n1898_in_film\tSanta_Claus_(1898_film)\tlink\t33\n18_(number)\tLucas_number\tlink\t13\n18_Miles_Out\tLauren_Cohan\tlink\t28\n18_Miles_Out\tRick_Grimes\tlink\t11\n18_Wheeler:_American_Pro_Trucker\tAcclaim_Cheltenham\tlink\t13\n18th_Wing\tKadena_Air_Base\tlink\t26\n18th_century\t1730s\tlink\t21\n18th_century\tAntonio_Vivaldi\tlink\t12\n18th_century\tMaximilien_Robespierre\tlink\t61\n18th_century\tRebellion_of_Túpac_Amaru_II\tlink\t14\n1900\t1900_Galveston_hurricane\tlink\t27\n1900\tJohn_Ruskin\tlink\t13\n1900_(film)\tSterling_Hayden\tlink\t42\n1900_(film)\tThe_Legend_of_1900\tlink\t116\n1900_Galveston_hurricane\tKing_Vidor\tlink\t11\n1900_Philadelphia_Phillies_season\t1900_Boston_Beaneaters_season\tlink\t21\n1900_Summer_Olympics\tHaiti_at_the_1900_Summer_Olympics\tlink\t14\n1900_Summer_Olympics\tSummer_Olympic_Games\tlink\t38\n1900_in_film\tRobert_W._Paul\tlink\t21\n1900_in_music\tFlight_of_the_Bumblebee\tlink\t14\n1900s_(decade)\tNew_Imperialism\tlink\t49\n1900s_in_Western_fashion\tHarrods\tlink\t21\n1901\t1901_in_the_United_Kingdom\tlink\t14\n1901_in_film\tStop_Thief!\tlink\t22\n1903_in_film\tThe_Great_Train_Robbery_(1903_film)\tlink\t34\n1903_in_film\tWarner_Bros.\tlink\t11\n1904_Summer_Olympics\tAinu_people\tlink\t32\n1906\t1906_in_literature\tlink\t13\n1906_San_Francisco_earthquake\tSan_Andreas_Fault\tlink\t261\n1908_Summer_Olympics_medal_table\tRussian_Empire_at_the_1908_Summer_Olympics\tlink\t11\n1910_NHA_season\tMontreal_Canadiens\tlink\t11\n1910s_in_film\t1911_in_film\tlink\t47\n1910s_in_film\t1919_in_film\tlink\t28\n1913\tEnver_Pasha\tother\t12\n1914\tMary_Carlisle\tlink\t66\n1916\tJohn_Kundla\tlink\t19\n1916\tKingdom_of_Poland_(1916–18)\tlink\t17\n1916\tMovita_Castaneda\tlink\t17\n1916\tPaul_Halmos\tlink\t11\n1916_Cumberland_vs._Georgia_Tech_football_game\tBobby_Dodd_Stadium\tlink\t32\n1916_Zoning_Resolution\tSetback_(architecture)\tlink\t41\n1916_in_the_United_States\tProgressive_Era\tlink\t24\n1917_in_film\tEl_Apóstol\tlink\t13\n1918_flu_pandemic\tSamoa\tlink\t55\n1919_World_Series\tHyman_Roth\tlink\t14\n1920\tMichael_Anderson_(director)\tlink\t26\n1920\tMontgomery_Clift\tlink\t15\n1920_(film)\tOne_Missed_Call_(2008_film)\tlink\t28\n1920_(film)\tPalampur\tlink\t92\n1920_Democratic_National_Convention\t1924_Democratic_National_Convention\tlink\t248\n1920_Democratic_National_Convention\tWilliam_Jennings_Bryan\tlink\t26\n1920_Palm_Sunday_tornado_outbreak\tHydrodynamical_helicity\tother\t14\n1920_Summer_Olympics\tFootball_at_the_1920_Summer_Olympics\tlink\t90\n1920s\tErich_Maria_Remarque\tlink\t11\n1920s\tRoscoe_Arbuckle\tlink\t14\n1920s_Berlin\tI_Am_a_Camera\tlink\t12\n1922\tJudy_Garland\tlink\t64\n1922\tWilliam_Desmond_Taylor\tlink\t47\n1922_Committee\tCarlton_Club_meeting\tother\t30\n1923\tList_of_state_leaders_in_1923\tlink\t35\n1923\tVladimir_Lenin\tlink\t13\n1923_FA_Cup_Final\tVic_Watson\tlink\t12\n1924\tRobert_Horton_(actor)\tlink\t11\n1924_Republican_National_Convention\t1920_Republican_National_Convention\tlink\t280\n1924_Republican_National_Convention\tFrank_Orren_Lowden\tother\t27\n1924_Summer_Olympics\tEstonia_at_the_1924_Summer_Olympics\tlink\t12\n1924_in_film\tThe_Thief_of_Bagdad_(1924_film)\tlink\t24\n1924_in_the_United_Kingdom\tGeorge_V\tlink\t14\n1925_in_the_United_States\tRoaring_Twenties\tlink\t20\n1925_serum_run_to_Nome\tTerritory_of_Alaska\tlink\t34\n1926\t1926_in_aviation\tlink\t14\n1927_New_York_Yankees_season\t1954_Cleveland_Indians_season\tlink\t11\n1927_New_York_Yankees_season\tJulie_Wera\tlink\t12\n1927_U.S._National_Championships_(tennis)\t1927_U.S._National_Championships_–_Men\u0027s_Singles\tlink\t15\n1927_in_film\tBefore_1925_in_television\tother\t11\n1928_Democratic_National_Convention\tJesse_H._Jones\tlink\t11\n1928_Summer_Olympics\tFootball_at_the_1928_Summer_Olympics\tlink\t96\n1928_Summer_Olympics\tPhilippines_at_the_1928_Summer_Olympics\tlink\t14\n1928_Winter_Olympics\t1924_Winter_Olympics\tlink\t35\n1929\tJune_Squibb\tlink\t12\n1929\tKellogg–Briand_Pact\tlink\t18\n1929\tPeter_Higgs\tlink\t12\n1929_Barcelona_International_Exposition\tMagic_Fountain_of_Montjuïc\tlink\t19\n1929_Hebron_massacre\tMizrahi_Jews\tlink\t59\n1929_in_the_United_States\tSan_Mateo–Hayward_Bridge\tother\t11\n1930_FIFA_World_Cup\t1930_FIFA_World_Cup_Group_3\tlink\t240\n1930_FIFA_World_Cup\t1934_FIFA_World_Cup\tlink\t2276\n1930_FIFA_World_Cup\t2010_FIFA_World_Cup\tlink\t20\n1930_FIFA_World_Cup\tNicolae_Kovács\tlink\t18\n1930_FIFA_World_Cup_Final\tHéctor_Castro\tlink\t66\n1930_FIFA_World_Cup_Group_3\tPlácido_Galindo\tlink\t14\n1930_FIFA_World_Cup_Group_4\tBert_Patenaude\tlink\t43\n1930_FIFA_World_Cup_squads\tErnesto_Mascheroni\tlink\t17\n1930_FIFA_World_Cup_squads\tFelipe_Rosas\tlink\t12\n1930_FIFA_World_Cup_squads\tPlácido_Galindo\tlink\t11\n1930s\t1939\tlink\t98\n1930s\tThe_Wizard_of_Oz_(1939_film)\tlink\t39\n1930s_in_film\tMotion_Picture_Production_Code\tother\t32\n1931\tElly_Beinhorn\tlink\t29\n1931_Indianapolis_500\tLouis_Schneider\tlink\t13\n1932_Democratic_National_Convention\tHuey_Long\tlink\t27\n1932_Summer_Olympics\tGreat_Britain_at_the_1932_Summer_Olympics\tlink\t12\n1933_in_film\tMidnight_Club_(film)\tlink\t11\n1934\tSophia_Loren\tlink\t11\n1934_FIFA_World_Cup\tTrieste\tlink\t16\n1934_FIFA_World_Cup_squads\tAlfredo_Alves_Tinoco\tlink\t19\n1934_FIFA_World_Cup_squads\tGuido_Masetti\tlink\t20\n1934_FIFA_World_Cup_squads\tJan_van_Diepenbeek\tlink\t12\n1934_FIFA_World_Cup_squads\tKick_Smit\tlink\t16\n1934_FIFA_World_Cup_squads\tPierre_Korb\tlink\t14\n1934_FIFA_World_Cup_squads\tWilly_Huber\tlink\t11\n1934_in_the_United_States\tPretty_Boy_Floyd\tlink\t11\n1935\t1930s\tlink\t11\n1935_Boston_Braves_season\tBraves_Field\tlink\t17\n1935_in_film\tCurly_Top_(film)\tlink\t26\n1936\tArlene_Golonka\tlink\t15\n1936_NFL_draft\tJay_Berwanger\tlink\t94\n1936_Soviet_Constitution\tConstitution_of_the_Soviet_Union\tlink\t51\n1936_Summer_Olympics\tBerlin\tlink\t63\n1936_Summer_Olympics\tRudolf_Ismayr\tlink\t129\n1936_Summer_Olympics\tUnited_States_Olympic_Committee\tlink\t20\n1936_Summer_Olympics_medal_table\tAustralia_at_the_1936_Summer_Olympics\tlink\t11\n1936_Summer_Olympics_torch_relay\tSiegfried_Eifrig\tlink\t39\n1937\t1937_in_aviation\tlink\t58\n1937\tMarch_1937\tlink\t16\n1937_Ford\tRecession_of_1937–38\tother\t11\n1938\tDouglas_Corrigan\tother\t22\n1938\tHawaii_Clipper\tlink\t12\n1938_European_Athletics_Championships\t1934_European_Athletics_Championships\tlink\t11\n1938_FIFA_World_Cup\tAntibes\tlink\t17\n1938_FIFA_World_Cup\tȘtefan_Dobay\tlink\t20\n1938_FIFA_World_Cup_squads\tAlfredo_Foni\tlink\t18\n1938_FIFA_World_Cup_squads\tSemarang\tlink\t13\n1939\tJozef_Tiso\tlink\t18\n1939_South_American_Championship\tTeodoro_Fernández\tlink\t15\n1940\t1937\tlink\t22\n1940\t1940_in_aviation\tlink\t38\n1940_El_Centro_earthquake\tList_of_earthquakes_in_California\tlink\t15\n1940_Summer_Olympics\t1944_Summer_Olympics\tlink\t565\n1940s\t1930–1945_in_Western_fashion\tother\t85\n1940s\tPost–World_War_II_economic_expansion\tother\t38\n1940s_in_film\t1947_in_film\tlink\t70\n1941\tInfamy_Speech\tlink\t20\n1941_(film)\tLionel_Stander\tlink\t94\n1941_Odessa_massacre\tOdessa\tlink\t64\n1942\tBattle_of_the_Coral_Sea\tlink\t20\n1942:_Joint_Strike\t1943:_The_Battle_of_Midway\tlink\t15\n1943_in_film\tBehind_the_Rising_Sun_(film)\tlink\t30\n1944_in_film\tFrenchman\u0027s_Creek_(film)\tlink\t17\n1944_in_film\tMeet_Me_in_St._Louis\tlink\t36\n1945\tBenito_Mussolini\tlink\t17\n1945\tGoing_My_Way\tlink\t15\n1945_Anti-Jewish_riots_in_Egypt\t1948_Cairo_bombings\tlink\t14\n1945_Katsuyama_killing_incident\tMichael_Brown_Okinawa_assault_incident\tlink\t410\n1946\tCarl_Gustaf_Emil_Mannerheim\tlink\t13\n1946\tEd_O\u0027Neill\tlink\t25\n1946\tGianni_Versace\tlink\t11\n1946\tJack_Woolams\tlink\t14\n1946_Antarctica_PBM_Mariner_crash\tMartin_PBM_Mariner\tlink\t13\n1946_Vancouver_Island_earthquake\tMoment_magnitude_scale\tlink\t11\n1946_in_music\tTo_Each_His_Own_(Jay_Livingston_and_Ray_Evans_song)\tlink\t20\n1946_in_sports\tAmerican_football\tlink\t25\n1947_Balkan_Cup\tBalkan_Cup\tlink\t16\n1947_Chicago_Cardinals_season\tArizona_Cardinals\tlink\t19\n1947_World_Series\tBucky_Harris\tlink\t18\n1947_in_film\tLife_with_Father_(film)\tlink\t29\n1947_in_film\tThe_Hucksters\tlink\t13\n1948\t1951\tlink\t65\n1948\tSamuel_L._Jackson\tlink\t13\n1948\tTakahē\tlink\t16\n1948_Democratic_National_Convention\t1944_Democratic_National_Convention\tlink\t241\n1948_Grand_Prix_season\t1948_British_Grand_Prix\tlink\t19\n1948_Palestinian_exodus\tPalestinian_diaspora\tlink\t16\n1948_Summer_Olympics\tDiving_at_the_1948_Summer_Olympics\tlink\t60\n1948_Summer_Olympics\tOlympic_Games\tlink\t21\n1949\tJoe_Louis\tlink\t15\n1949\tKonrad_Adenauer\tlink\t17\n1949\tTokyo_Stock_Exchange\tlink\t11\n1949_BAA_Finals\tWashington_Capitols\tlink\t22\n1949_Ford\t1952_Ford\tlink\t825\n1949_Ford\tFord_flathead_V8_engine\tother\t52\n1949_NFL_draft\tDoak_Walker\tlink\t16\n1950\t20th_century\tlink\t16\n1950_FIFA_World_Cup\tGino_Pariani\tlink\t37\n1950_FIFA_World_Cup\tSailen_Manna\tlink\t53\n1950_FIFA_World_Cup_squads\tAlberto_Aparicio\tlink\t11\n1950_FIFA_World_Cup_squads\tFrank_Borghi\tlink\t24\n1950_FIFA_World_Cup_squads\tGeoff_Coombes\tlink\t19\n1950_FIFA_World_Cup_squads\tMax_Prieto\tlink\t11\n1950_Formula_One_season\tCooper_Car_Company\tlink\t12\n1950_Formula_One_season\tGuy_Mairesse\tlink\t14\n1950_United_States_Census\tCleveland\tlink\t27\n1950_United_States_Census\tPennsylvania\tlink\t13\n1950_college_football_season\t1950_NCAA_football_rankings\tlink\t15\n1950_in_film\tFancy_Pants_(film)\tlink\t11\n1950_in_film\tThe_Damned_Don\u0027t_Cry!\tother\t16\n1950_in_music\tNat_King_Cole\tlink\t17\n1950s\t1952_Summer_Olympics\tlink\t32\n1950s\tHarry_S._Truman\tlink\t65\n1950s\tRosemary_Clooney\tlink\t11\n1950s_in_film\tThe_7th_Voyage_of_Sinbad\tother\t16\n1950s_quiz_show_scandals\tQuiz_bowl\tother\t54\n1951\t1951_in_the_United_Kingdom\tlink\t54\n1951_Italian_Grand_Prix\t1951_Spanish_Grand_Prix\tlink\t64\n1951_Major_League_Baseball_season\t1951_in_baseball\tlink\t18\n1951_Pan_American_Games\t1955_Pan_American_Games\tlink\t30\n1951_Pan_American_Games\tSwimming_at_the_1951_Pan_American_Games\tlink\t14\n1952\tUniversity_of_Tennessee\tlink\t14\n1952_Mount_Gannett_C-124_crash\tMount_Gannett\tlink\t55\n1952_Severo-Kurilsk_tsunami\tKamchatka_earthquakes\tlink\t28\n1953_British_Mount_Everest_expedition\tColonel_(United_Kingdom)\tlink\t19\n1953_Dutch_Grand_Prix\t1953_Belgian_Grand_Prix\tlink\t47\n1953_in_film\tThe_Big_Heat\tlink\t15\n1954\tRene_Russo\tlink\t33\n1954_FA_Cup_Final\tLen_Millard\tlink\t12\n1954_FIBA_World_Championship\t1950_FIBA_World_Championship\tlink\t60\n1954_FIFA_World_Cup\tMax_Morlock\tlink\t92\n1954_FIFA_World_Cup_squads\t1950_FIFA_World_Cup_squads\tlink\t77\n1954_FIFA_World_Cup_squads\tAlfredo_Ramos\tother\t16\n1954_FIFA_World_Cup_squads\tRobert_Dienst\tlink\t13\n1954_FIFA_World_Cup_squads\tSalvador_Mota\tlink\t15\n1954_World_Sportscar_Championship_season\t1954_12_Hours_of_Sebring\tlink\t13\n1954_in_film\tNight_People_(film)\tother\t11\n1954_transfer_of_Crimea\tKosovo_independence_precedent\tlink\t78\n1955\tRay_Kroc\tlink\t11\n1955_Brooklyn_Dodgers_season\tJackie_Robinson\tlink\t23\n1955_doubled-die_cent\tDoubled_die\tlink\t61\n1956\t20th_Congress_of_the_Communist_Party_of_the_Soviet_Union\tlink\t16\n1956\tMargaret_Truman\tlink\t28\n1956\tOn_the_Cult_of_Personality_and_Its_Consequences\tlink\t32\n1956_Georgian_demonstrations\t1978_Georgian_demonstrations\tlink\t621\n1956_Murray_River_flood\tMenindee_Lakes\tlink\t12\n1956_Summer_Olympics\tEquestrian_at_the_1956_Summer_Olympics\tlink\t104\n1956_Summer_Olympics\tWrestling_at_the_1956_Summer_Olympics\tlink\t69\n1956_in_music\tElla_and_Louis\tlink\t12\n1957_Five_Nations_Championship\tEngland_national_rugby_union_team\tlink\t12\n1957_Formula_One_season\tCoppa_Acerbo\tother\t15\n1957_in_film\tRaintree_County_(film)\tlink\t45\n1957_in_the_United_States\t1960_in_the_United_States\tlink\t64\n1957_in_the_United_States\tWillie_Edwards\tlink\t29\n1958_FIFA_World_Cup_squads\tGordan_Irović\tlink\t21\n1958_FIFA_World_Cup_squads\tGunnar_Gren\tlink\t23\n1958_FIFA_World_Cup_squads\tOsvaldo_Héctor_Cruz\tlink\t17\n1958_Italian_Grand_Prix\t1958_Moroccan_Grand_Prix\tlink\t30\n1958_NBA_Playoffs\tAtlanta_Hawks\tother\t12\n1958_Tybee_Island_mid-air_collision\tMark_15_nuclear_bomb\tlink\t176\n1958_in_film\tAmbush_at_Cimarron_Pass\tlink\t11\n1959\tMillennium\tlink\t12\n1959_African_Cup_of_Nations\t1962_African_Cup_of_Nations\tlink\t123\n1959_European_Cup_Final\tJean_Vincent\tother\t13\n1959_European_Cup_Final\tMarcos_Alonso_Imaz\tlink\t11\n1959_Tibetan_uprising\tChoekyi_Gyaltsen,_10th_Panchen_Lama\tother\t318\n1959_Tibetan_uprising\tSoviet_Union\tlink\t17\n1959_in_film\t32nd_Academy_Awards\tlink\t15\n1959_in_music\tChuck_Berry_Is_on_Top\tlink\t27\n1960_Argentine_Grand_Prix\t1960_Monaco_Grand_Prix\tlink\t36\n1960_FA_Cup_Final\tNorman_Deeley\tlink\t25\n1960_Indianapolis_500\tJim_Rathmann\tlink\t28\n1960_New_York_mid-air_collision\tNew_Dorp,_Staten_Island\tother\t28\n1960_U-2_incident\tBodø\tlink\t50\n1960_United_States_Census\tIllinois\tlink\t13\n1960_in_film\t13_Ghosts\tlink\t21\n1960s\tAbbie_Hoffman\tlink\t21\n1960s\tBonnie_and_Clyde_(film)\tlink\t30\n1960s\tFlower_power\tother\t45\n1960s\tNissan_S30\tother\t13\n1960s\tPsychedelia\tlink\t23\n1960s_in_LGBT_rights\tCouncil_on_Religion_and_the_Homosexual\tlink\t11\n1960s_in_Western_fashion\tCulottes\tlink\t235\n1960s_in_music\tThe_Jimi_Hendrix_Experience\tlink\t14\n1961_24_Hours_of_Le_Mans\tFerrari_TR\tlink\t13\n1961_F-84_Thunderstreak_incident\t1964_T-39_shootdown_incident\tlink\t73\n1961_President_Airlines_Douglas_DC-6_crash\tLAN_Chile_Flight_107\tlink\t19\n1961_U.S._National_Championships_(tennis)\t1961_U.S._National_Championships_–_Men\u0027s_Singles\tlink\t15\n1961_in_film\tAtlantis,_the_Lost_Continent\tlink\t20\n1961_in_film\tBarabbas_(1961_film)\tlink\t12\n1961_in_film\tJudgment_at_Nuremberg\tlink\t77\n1961_in_film\tSanctuary_(1961_film)\tlink\t14\n1962\tEddie_Izzard\tlink\t11\n1962\tEdmond_Jouhaud\tlink\t17\n1962_Asian_Games\t1966_Asian_Games\tlink\t33\n1962_European_Cup_Final\tBéla_Guttmann\tlink\t72\n1962_FA_Cup_Final\tJimmy_Greaves\tlink\t19\n1962_FIFA_World_Cup\tViktor_Ponedelnik\tlink\t22\n1962_FIFA_World_Cup\tYugoslavia_national_football_team\tlink\t67\n1962_FIFA_World_Cup_squads\tEzio_Pascutti\tlink\t19\n1962_FIFA_World_Cup_squads\tGalimzyan_Khusainov\tlink\t15\n1962_FIFA_World_Cup_squads\tJoaquín_Peiró\tlink\t17\n1962_FIFA_World_Cup_squads\tJosef_Jelínek\tlink\t18\n1962_FIFA_World_Cup_squads\tJuan_Carlos_Oleniak\tlink\t21\n1962_FIFA_World_Cup_squads\tJürgen_Kurbjuhn\tlink\t15\n1962_NBA_draft\tDave_DeBusschere\tlink\t57\n1962_in_television\tCombat!\tlink\t20\n1963\t1963_in_literature\tlink\t21\n1963\tBrad_Pitt\tlink\t26\n1963_Coup_in_South_Vietnam\tBuddhist_flag\tlink\t64\n1963_Formula_One_season\t1963_South_African_Grand_Prix\tlink\t36\n1963_Formula_One_season\t1963_United_States_Grand_Prix\tlink\t24\n1963_NFL_draft\tJerry_Stovall\tlink\t12\n1963_in_the_United_Kingdom\t1963_in_British_music\tlink\t15\n1964\tAugust_1964\tlink\t11\n1964\tBridget_Fonda\tlink\t19\n1964\tChe_Guevara\tlink\t12\n1964_AFC_Asian_Cup\t1964_AFC_Asian_Cup_qualification\tlink\t125\n1964_Alaska_earthquake\tWhittier,_Alaska\tlink\t62\n1964_NFL_draft\t1964_American_Football_League_draft\tlink\t12\n1964_NFL_season\t1964_American_Football_League_season\tlink\t15\n1964_Summer_Olympics\tNippon_Budokan\tlink\t26\n1964_Winter_Olympics\tGreat_Britain_at_the_1964_Winter_Olympics\tlink\t13\n1964_in_music\tList_of_Billboard_Hot_100_number-one_singles_of_1964\tother\t28\n1965_(film)\tList_of_Singaporean_films_of_2015\tlink\t14\n1965_European_Cup_Final\tJoaquín_Peiró\tlink\t38\n1965_Palm_Sunday_tornado_outbreak\t1994_Palm_Sunday_tornado_outbreak\tlink\t83\n1965_Palm_Sunday_tornado_outbreak\tDunlap,_Indiana\tlink\t11\n1965_Southeast_Asian_Peninsular_Games\t1961_Southeast_Asian_Peninsular_Games\tlink\t21\n1965_in_film\tIn_Harm\u0027s_Way\tlink\t15\n1965_in_the_Vietnam_War\tVietnam_War\tlink\t23\n1966\tGeorges_Figon\tlink\t23\n1966_24_Hours_of_Le_Mans\tFord_GT40\tlink\t170\n1966_Candlestick_Park_tornado\tList_of_F5_and_EF5_tornadoes\tlink\t78\n1966_FA_Cup_Final\tDavid_Ford_(footballer)\tlink\t26\n1966_FIFA_World_Cup\tElizabeth_II\tlink\t11\n1966_FIFA_World_Cup\tGeorge_McCabe\tlink\t15\n1966_FIFA_World_Cup\tJosé_Augusto_Torres\tlink\t53\n1966_FIFA_World_Cup\tLothar_Emmerich\tlink\t17\n1966_FIFA_World_Cup_squads\tAlf_Ramsey\tlink\t89\n1966_FIFA_World_Cup_squads\tAntónio_Simões\tlink\t23\n1966_FIFA_World_Cup_squads\tZoltán_Varga_(footballer)\tlink\t14\n1966_Football_League_Cup_Final\tFootball_League_Cup\tlink\t11\n1966_Formula_One_season\tEagle_Mk1\tlink\t11\n1966_Formula_One_season\tHonda_RA273\tlink\t11\n1966_German_Grand_Prix\t1966_Italian_Grand_Prix\tlink\t44\n1966_in_film\tCul-de-sac_(1966_film)\tlink\t20\n1966_in_music\t96_Tears_(album)\tlink\t14\n1966_in_music\tThe_Incredible_String_Band_(album)\tlink\t14\n1966_in_music\tThe_Movie_Song_Album\tlink\t12\n1966_in_music\tTimeline_of_musical_events\tother\t11\n1966_in_the_United_Kingdom\tAlma_Cogan\tlink\t15\n1966_in_the_United_States\tGateway_Arch\tlink\t12\n1966_in_the_Vietnam_War\tBattle_of_A_Shau\tlink\t31\n1967\tConstitution_Act,_1867\tlink\t12\n1967\tMoby_Grape\tlink\t17\n1967\tPaul_Giamatti\tlink\t20\n1967\tThe_Jungle_Book_(1967_film)\tlink\t11\n1967:_The_First_Three_Singles\tPink_Floyd\tlink\t30\n1967_Detroit_riot\tList_of_ethnic_riots\tother\t16\n1967_European_Cup_Final\tBobby_Murdoch\tlink\t68\n1967_European_Cup_Final\tMario_Corso\tlink\t16\n1967_FA_Cup_Final\tTommy_Docherty\tlink\t13\n1967_Gallaher_500\t1968_Hardie-Ferodo_500\tlink\t35\n1967_NBA_Finals\tBilly_Cunningham\tlink\t35\n1967_Opium_War\tKhun_Sa\tlink\t24\n1967_in_film\t1963_in_film\tlink\t12\n1967_in_film\tThe_Taming_of_the_Shrew_(1967_film)\tlink\t37\n1967_in_music\tDusty_Springfield\tlink\t11\n1967_in_music\tIncense_and_Peppermints\tlink\t15\n1967_in_music\tLove_(band)\tlink\t12\n1967_in_the_United_States\tTwenty-fifth_Amendment_to_the_United_States_Constitution\tlink\t52\n1968\tAugust_28\tlink\t17\n1968\tHelen_Keller\tlink\t74\n1968\tRobert_F._Kennedy\tlink\t67\n1968_American_Football_League_season\t1968_NFL_season\tlink\t22\n1968_Democratic_National_Convention\tDavid_T._Wilentz\tother\t29\n1968_Democratic_National_Convention\tLee_Weiner\tlink\t200\n1968_Democratic_National_Convention_protest_activity\tInternational_Amphitheatre\tother\t96\n1968_FA_Cup_Final\tJohnny_Morrissey\tlink\t12\n1968_Summer_Olympics\tSwimming_at_the_1968_Summer_Olympics\tlink\t133\n1968_Thule_Air_Base_B-52_crash\tBoeing_B-52_Stratofortress\tlink\t80\n1968_in_film\tThe_Fox_(1967_film)\tlink\t36\n1968_in_music\tChildren_of_the_Future_(Steve_Miller_Band_album)\tlink\t23\n1968_in_music\tShades_of_Deep_Purple\tlink\t39\n1968_in_the_Vietnam_War\tBattle_of_Saigon_(1968)\tlink\t17\n1969\tBoris_Karloff\tlink\t31\n1969_(film)\tMariette_Hartley\tlink\t28\n1969_(film)\tWinona_Ryder\tlink\t57\n1969_Formula_One_season\t1969_German_Grand_Prix\tlink\t34\n1969_Inter-Cities_Fairs_Cup_Final\tDavid_Craig_(Northern_Irish_footballer)\tlink\t26\n1969_NBA_Finals\tElgin_Baylor\tlink\t30\n1969_NBA_draft\tBingo_Smith\tlink\t12\n1969_NFL_season\t1969_Los_Angeles_Rams_season\tlink\t34\n1969_Northern_Ireland_riots\tDerry\tlink\t16\n1969_Telangana_Agitation\tMarri_Chenna_Reddy\tother\t12\n1969_in_music\tIt\u0027s_Our_Thing\tlink\t15\n1969_in_the_United_States\t1972_in_the_United_States\tlink\t41\n1969_in_the_United_States\tNeil_Armstrong\tlink\t17\n1970\t1970_in_literature\tlink\t20\n1970\tDiana_Ross\tlink\t17\n1970\tMatthew_Lillard\tlink\t11\n1970_European_Cup_Final\tBobby_Murdoch\tlink\t12\n1970_FIFA_World_Cup_squads\tAnton_Flešár\tlink\t11\n1970_FIFA_World_Cup_squads\tJosé_Fernández_(footballer,_born_1939)\tother\t22\n1970_FIFA_World_Cup_squads\tUwe_Seeler\tlink\t40\n1970_in_film\tPerformance_(film)\tlink\t11\n1970_in_music\t2_Years_On\tlink\t16\n1970_in_music\tShare_the_Land\tlink\t13\n1970s\tIsabel_Martínez_de_Perón\tlink\t55\n1970s_in_Hong_Kong\tHistory_of_Hong_Kong\tlink\t12\n1970s_in_Western_fashion\tAfro\tlink\t17\n1970s_in_Western_fashion\tPea_coat\tother\t22\n1970s_in_music\tThe_Guess_Who\tlink\t15\n1970s_in_science_and_technology\tVoyager_program\tlink\t27\n1971\tEwan_McGregor\tlink\t11\n1971_Bangladesh_genocide\tRazakar_(Pakistan)\tother\t153\n1971_Bangladesh_genocide\tSheikh_Mujibur_Rahman\tlink\t32\n1971_FA_Cup_Final\t1979_FA_Cup_Final\tlink\t11\n1971_FA_Cup_Final\tTommy_Smith_(footballer,_born_1945)\tother\t19\n1971_NFL_draft\tFrank_Lewis_(American_football)\tother\t20\n1971_NFL_draft\tRocky_Thompson_(American_football)\tlink\t18\n1971_North_American_Soccer_League_season\tToronto_Blizzard_(1971–84)\tlink\t14\n1971_in_music\tA_Nod_Is_As_Good_As_a_Wink..._to_a_Blind_Horse\tlink\t15\n1971_in_music\tCoat_of_Many_Colors\tlink\t12\n1972\t1969\tlink\t64\n1972\tRichard_Chelimo\tlink\t12\n1972_AFC_Asian_Cup\t1972_AFC_Asian_Cup_squads\tlink\t36\n1972_AFC_Asian_Cup\t1976_AFC_Asian_Cup\tlink\t208\n1972_AFC_Asian_Cup\tThailand_national_football_team\tlink\t20\n1972_Chicago_commuter_rail_crash\t1995_Fox_River_Grove_bus–train_collision\tlink\t14\n1972_Democratic_National_Convention\tJimmy_Carter\tlink\t13\n1972_European_Cup_Final\tJair_da_Costa\tlink\t103\n1972_FA_Cup_Final\tFrank_McLintock\tlink\t16\n1972_Formula_One_season\tBRM_P160\tlink\t25\n1972_Harlem_mosque_incident\tList_of_unsolved_deaths\tlink\t47\n1972_Summer_Olympics\tNazi_Germany\tlink\t24\n1972_Summer_Olympics\tRudi-Sedlmayer-Halle\tlink\t15\n1972_Summer_Olympics\tSeptember_11_attacks\tlink\t13\n1972_Summer_Paralympics\t1976_Summer_Paralympics\tlink\t34\n1972_UEFA_Cup_Final\t1972_European_Cup_Final\tlink\t13\n1972_UEFA_Cup_Final\tAlan_Mullery\tlink\t30\n1972_United_States_Grand_Prix\t1972_Formula_One_season\tlink\t11\n1972_Winter_Olympics\t1976_Winter_Olympics\tlink\t91\n1972_in_film\tThe_Possession_of_Joel_Delaney\tlink\t25\n1972_in_music\tLive_Full_House\tlink\t12\n1972_in_music\tShades_of_a_Blue_Orphanage\tlink\t45\n1972_in_music\tStyx_(album)\tlink\t36\n1973_Davis_Cup\t1973_Davis_Cup_Eastern_Zone\tlink\t15\n1973_European_Cup_Final\tGerrie_Mühren\tlink\t91\n1973_Formula_One_season\tDave_Charlton\tlink\t11\n1973_Formula_One_season\tTom_Belsø\tlink\t15\n1973_Indianapolis_500\t2010_Indianapolis_motorcycle_Grand_Prix\tlink\t35\n1973_Indianapolis_500\tWally_Dallenbach_Sr.\tlink\t11\n1973_NFL_draft\tChuck_Foreman\tlink\t15\n1973_World_Aquatics_Championships\tSwimming_at_the_1973_World_Aquatics_Championships\tlink\t50\n1973_in_music\tRed_Rose_Speedway\tlink\t33\n1973_in_music\tYeah!_(Brownsville_Station_album)\tlink\t14\n1973_in_the_United_Kingdom\tEdward_Heath\tlink\t19\n1973_in_video_gaming\tLemonade_Stand\tlink\t12\n1973_oil_crisis\tPrice_elasticity_of_demand\tlink\t14\n1974\tEd_Helms\tlink\t32\n1974_Asian_Games\tFootball_at_the_1974_Asian_Games\tlink\t45\n1974_European_Athletics_Championships\t1978_European_Athletics_Championships\tlink\t39\n1974_FIFA_World_Cup\t2018_FIFA_World_Cup\tlink\t19\n1974_FIFA_World_Cup\tGianni_Rivera\tlink\t22\n1974_FIFA_World_Cup\tNicolae_Rainea\tlink\t15\n1974_FIFA_World_Cup\tWest_Berlin\tlink\t84\n1974_FIFA_World_Cup_squads\tConny_Torstensson\tlink\t43\n1974_FIFA_World_Cup_squads\tEnrico_Albertosi\tlink\t20\n1974_FIFA_World_Cup_squads\tGerd_Kische\tlink\t23\n1974_FIFA_World_Cup_squads\tGuillermo_Páez\tlink\t15\n1974_FIFA_World_Cup_squads\tHristo_Bonev\tlink\t24\n1974_FIFA_World_Cup_squads\tJulio_Montero_Castillo\tlink\t17\n1974_NBA_Finals\tJo_Jo_White\tlink\t27\n1974_UEFA_Cup_Final\tMartin_Peters\tlink\t18\n1974_United_States_Grand_Prix\t1974_Formula_One_season\tlink\t11\n1974_in_film\t32nd_Golden_Globe_Awards\tlink\t11\n1974_in_film\tNightmare_Honeymoon\tlink\t11\n1974_in_film\tThe_Island_at_the_Top_of_the_World\tlink\t25\n1974_in_film\tThe_Little_Prince_(1974_film)\tlink\t19\n1974_in_music\tEnergized\tlink\t38\n1974_in_music\tStreetlife_Serenade\tlink\t37\n1975\t1975_in_the_United_Kingdom\tlink\t38\n1975\tCeeLo_Green\tlink\t13\n1975\tSix-Day_War\tlink\t17\n1975_Cannes_Film_Festival\tAlice_Doesn\u0027t_Live_Here_Anymore\tlink\t12\n1975_Cincinnati_Reds_season\tTony_Pérez\tlink\t11\n1975_Cricket_World_Cup_squads\tIan_Chappell\tlink\t30\n1975_Formula_One_season\tCarlos_Pace\tlink\t28\n1975_LaGuardia_Airport_bombing\tBath_School_disaster\tlink\t81\n1975_in_music\tPhysical_Graffiti\tlink\t48\n1975_in_music\tThe_Last_Record_Album\tlink\t13\n1976\tNight_of_the_Pencils\tlink\t15\n1976\tSam_Worthington\tlink\t20\n1976\tSoleil_Moon_Frye\tlink\t29\n1976_Chowchilla_kidnapping\t19:19\tlink\t26\n1976_Formula_One_season\t1950_Formula_One_season\tlink\t11\n1976_Formula_One_season\tTheodore_Racing\tlink\t19\n1976_German_Grand_Prix\t1976_Formula_One_season\tlink\t128\n1976_Japanese_Grand_Prix\tCarlos_Pace\tlink\t14\n1976_Mr._Olympia\tMike_Katz\tlink\t62\n1976_NBA_draft\tArmond_Hill\tlink\t11\n1976_Oakland_Raiders_season\tOakland_Raiders\tlink\t44\n1976_Republican_National_Convention\tBetty_Ford\tlink\t33\n1976_Republican_National_Convention\tCharles_Mathias\tlink\t16\n1976_Summer_Olympics\tEast_Germany_at_the_1976_Summer_Olympics\tlink\t79\n1976_UEFA_Cup_Final\tJan_Breydel_Stadium\tlink\t16\n\n\u003cfont color\u003dred\u003eResults are limited by 1000.\u003c/font\u003e\n"
+      },
+      "dateCreated": "Oct 3, 2016 6:28:32 PM",
+      "dateStarted": "Nov 14, 2016 11:35:57 PM",
+      "dateFinished": "Nov 14, 2016 11:35:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Top Articles",
+      "text": "clickstreamRaw.groupby(\u0027curr\u0027).sum().sort(\u0027sum(n)\u0027, ascending\u003dFalse).show()",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1462753600211_-1188342085",
+      "id": "20160509-002640_2054734797",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+--------------------+---------+\n|                curr|   sum(n)|\n+--------------------+---------+\n|           Main_Page|499824019|\n|        Donald_Trump| 21247127|\n|Batman_v_Superman...|  6696171|\n|            XHamster|  6378559|\n|Java_(programming...|  3398251|\n| 10_Cloverfield_Lane|  3033120|\n|      Deaths_in_2016|  2899547|\n|Republican_Party_...|  2725139|\n|       O._J._Simpson|  2600114|\n| Saint_Patrick\u0027s_Day|  2491101|\n|       Ronald_Reagan|  2430709|\n|Democratic_Party_...|  2393818|\n|           Meldonium|  2313589|\n|        Barack_Obama|  2196905|\n|   Leonardo_DiCaprio|  2099634|\n|     Deadpool_(film)|  2072869|\n|O._J._Simpson_mur...|  2002237|\n|      Bernie_Sanders|  1966194|\n|The_Walking_Dead_...|  1955541|\n|       Melania_Trump|  1946166|\n+--------------------+---------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "May 9, 2016 12:26:40 AM",
+      "dateStarted": "Nov 14, 2016 11:35:57 PM",
+      "dateFinished": "Nov 14, 2016 11:36:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Top Referers",
+      "text": "clickstreamRaw.groupby(\u0027prev\u0027).sum().sort(\u0027sum(n)\u0027, ascending\u003dFalse).show()",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1462754883465_1760409068",
+      "id": "20160509-004803_846998486",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+--------------------+----------+\n|                prev|    sum(n)|\n+--------------------+----------+\n|        other-google|2848495607|\n|         other-empty|2156754015|\n|          other-bing| 121942465|\n|     other-wikipedia| 112174648|\n|         other-other| 105939059|\n|         other-yahoo|  79784993|\n|       other-twitter|  31095277|\n|           Main_Page|  30157893|\n|      other-facebook|  13734099|\n|        Donald_Trump|   2775554|\n|Batman_v_Superman...|   2708340|\n|      Deaths_in_2016|   1679264|\n|        2016_in_film|   1472364|\n|     Deadpool_(film)|   1128992|\n|Captain_America:_...|   1029343|\n|List_of_Bollywood...|    914122|\n|The_Walking_Dead_...|    904767|\n|   Leonardo_DiCaprio|    790962|\n|House_of_Cards_(U...|    780216|\n|United_States_pre...|    766497|\n+--------------------+----------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "May 9, 2016 12:48:03 AM",
+      "dateStarted": "Nov 14, 2016 11:35:58 PM",
+      "dateFinished": "Nov 14, 2016 11:36:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Trending on Social Media",
+      "text": "click_twitter \u003d clickstreamRaw[clickstreamRaw[\u0027prev\u0027] \u003d\u003d \u0027other-twitter\u0027]\nclick_twitter.groupby(\u0027curr\u0027).sum().sort(\u0027sum(n)\u0027, ascending\u003dFalse).show()",
+      "dateUpdated": "Nov 14, 2016 11:35:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1462755141964_-650936233",
+      "id": "20160509-005221_1965572029",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+--------------------+------+\n|                curr|sum(n)|\n+--------------------+------+\n|        Lupe_Fuentes|557733|\n|Unfinished_portra...|475097|\n|           Bluetooth|439194|\n|          Zach_Braff|397054|\n| Genie_(feral_child)|366330|\n|Call_of_Duty:_Mod...|344700|\n|Dendrocnide_moroides|299664|\n|        Donald_Trump|269423|\n|          Andre_Royo|242651|\n|         John_Cazale|221199|\n|        Stephen_King|191406|\n|Slavery_Abolition...|186124|\n|      Earnie_Shavers|180603|\n|       Canaan_Banana|177554|\n|           Go_God_Go|164914|\n|        Roy_Sullivan|162793|\n|   Space_advertising|161985|\n|Ghostbusters:_The...|160467|\n|Scott_Pilgrim_vs....|152899|\n|       Jamie_Hyneman|150744|\n+--------------------+------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "May 9, 2016 12:52:21 AM",
+      "dateStarted": "Nov 14, 2016 11:36:25 PM",
+      "dateFinished": "Nov 14, 2016 11:36:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1479664781877_1092925553",
+      "id": "20161120-175941_1310968595",
+      "dateCreated": "Nov 20, 2016 5:59:41 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Wiki Dataset Clickstream Analysis",
+  "id": "TB6JUKYN2Y239861479662761",
+  "angularObjects": {
+    "2C2BDKUUA239861479162683847": [],
+    "2C11MEQXB239861479162683850": [],
+    "2C36TTYST239861479162683854": [],
+    "2BZSX93XB239861479162683807": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {},
+  "source": "FCN"
+}
