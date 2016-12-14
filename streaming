@@ -1,0 +1,61 @@
+{
+  "paragraphs": [
+    {
+      "text": "spark",
+      "dateUpdated": "Dec 1, 2016 4:02:34 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1480608141364_1659348644",
+      "id": "20161201-160221_1142951595",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Dec 1, 2016 4:02:21 PM",
+      "dateStarted": "Dec 1, 2016 4:02:34 PM",
+      "dateFinished": "Dec 1, 2016 4:04:23 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1480608154555_-1975743640",
+      "id": "20161201-160234_1509215769",
+      "dateCreated": "Dec 1, 2016 4:02:34 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "StructuredStreaming",
+  "id": "EZV3HYV3X61480608139",
+  "angularObjects": {
+    "2C2BDKUUA239861479162683847": [],
+    "2C11MEQXB239861479162683850": [],
+    "2C36TTYST239861479162683854": [],
+    "2BZSX93XB239861479162683807": []
+  },
+  "config": {},
+  "info": {},
+  "source": "FCN"
+}
