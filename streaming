@@ -69,8 +69,8 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "",
-      "dateUpdated": "Dec 14, 2016 9:29:25 PM",
+      "text": "sc",
+      "dateUpdated": "Dec 14, 2016 9:47:35 PM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -82,7 +82,8 @@
           "groups": [],
           "scatter": {}
         },
-        "enabled": true
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
       },
       "settings": {
         "params": {},
@@ -96,9 +97,21 @@
         "msg": ""
       },
       "dateCreated": "Dec 14, 2016 9:26:21 PM",
-      "dateStarted": "Dec 14, 2016 9:29:25 PM",
-      "dateFinished": "Dec 14, 2016 9:29:25 PM",
+      "dateStarted": "Dec 14, 2016 9:47:35 PM",
+      "dateFinished": "Dec 14, 2016 9:47:35 PM",
       "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1481752055885_1663721731",
+      "id": "20161214-214735_617714789",
+      "dateCreated": "Dec 14, 2016 9:47:35 PM",
+      "status": "READY",
       "progressUpdateIntervalMs": 500
     }
   ],
